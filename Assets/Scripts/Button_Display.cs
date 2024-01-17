@@ -50,13 +50,13 @@ public class ButtonController : MonoBehaviour
     {
         // Hide the third button
         thirdButton.gameObject.SetActive(false);
-        gunPrefab.SetActive(true);
+        
 
         // Show the second button
         secondButton.gameObject.SetActive(true);
         gunInstance = Instantiate(gunPrefab, cameraTransform);
         gunInstance.transform.localPosition = Vector3.zero;
-
+        gunPrefab.SetActive(true);
         // Do any logic you need for the third button click
     }
 }

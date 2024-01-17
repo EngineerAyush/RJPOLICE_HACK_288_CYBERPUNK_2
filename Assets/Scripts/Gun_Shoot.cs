@@ -4,10 +4,11 @@ using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public float bulletSpeed = 10f;
+    public GameObject cavityEffectPrefab;  
+    public float bulletSpeed = 6f;
     public AudioClip shotSound;
 
-    public Transform bulletSpawnPoint;  // Assign this in the Unity Editor
+    public Transform bulletSpawnPoint;  
     public Button shootButton;
 
     private AudioSource audioSource;
@@ -57,6 +58,19 @@ public class GunController : MonoBehaviour
         else
         {
             Debug.LogError("Bullet prefab or bullet spawn point not assigned.");
+        }
+    }
+
+    // Called when a collision occurs
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collision detected!");
+        // Check if the collided object has a cavity effect prefab
+        if (cavityEffectPrefab != null)
+        {
+            // Instantiate the cavity effect at the collision point
+            GameObject cavityEffect = Instantiate(cavityEffectPrefab, collision.contacts[0].point, Quaternion.identity);
+            Destroy(cavityEffect, 3f);  // Destroy the cavity effect after 3 seconds
         }
     }
 }
